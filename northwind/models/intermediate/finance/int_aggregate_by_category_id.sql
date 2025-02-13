@@ -1,11 +1,11 @@
 with int_aggregate_by_category_id as (
     select
-        id,
+        category_id,
         count(*)
     from
         {{ref("srg_crm_nova_tabela")}} 
     group by
-        id
+        category_id
 )
 
 select * from int_aggregate_by_category_id
