@@ -1,11 +1,19 @@
 {{ config(
  materialized='incremental',
- unique_key='category_id'
+ unique_key='id',
+ on_schema_change='append_new_columns'
  ) }}
 
-select * from {{ref("srg_crm_nova_tabela")}}    
+with vendas as (
+    select 
+        *
+    from
+      {{ref("srg_crm_nova_tabela")}}  
+)    
  
---select * from vendas
+    select 
+        * 
+    from vendas
 
 {% if is_incremental() %}
 
